@@ -126,3 +126,40 @@ print(covid_summary)
 ```
 
 ### Exercise 4
+
+Based solely on the data and visualization, the plot shows that mask counties had higher initial 7-day average case rates than non-mask counties, but over the observed period, cases in mask counties declined substantially (−9.4 per 100K), whereas cases in non-mask counties remained relatively stable (−0.6 per 100K). This indicates that, during this time frame, mask counties experienced a pronounced downward trend in COVID-19 cases, while non-mask counties did not.
+
+### Exercise 5
+
+Well, I think I managed to answer this already...again. Nonetheless... The accurate visualization conveys that mask counties experienced a sharper decline in COVID-19 cases over the observed period compared with non-mask counties. Key factors contributing to this message include the use of a single y-axis for both county types, which allows direct comparison of magnitude and trends; the variables plotted (7-day average cases per 100K by county type and date), which clearly represent differences in levels and temporal patterns; and the line plot format, which emphasizes continuous change over time. Consistent x-axis spacing with readable dates and clearly labeled axes further enhances interpretability, making the differences between mask and non-mask counties visually obvious.
+
+### Exercise 6
+
+For this opposite visualization, the goal is to convey the reverse of the accurate message: that non-mask counties appear to have higher case rates and mask counties appear to experience increases rather than declines. To achieve this, the y-axis can be inverted so that declines in mask counties appear as rises, and the relatively stable trend in non-mask counties appears to fall. No additional data are required; the same 7-day average cases per 100K for mask and non-mask counties is used, but axis scaling dramatically changes the message the visualization (appears to) convey.
+
+### Exercise 7
+
+```{r dishonest_plot}
+ggplot(covid_data, aes(x = date, y = cases_per_100k, color = county_type)) +
+  geom_line(size = 1) +
+  labs(
+    title = "Kansas COVID-19 7-Day Average Cases per 100K – Opposite Message",
+    x = "Date",
+    y = "Cases per 100K",
+    color = "County Type"
+  ) +
+  scale_x_date(
+    limits = c(as.Date("2020-07-12"), as.Date("2020-08-03")),
+    date_breaks = "3 days",
+    date_labels = "%m/%d/%Y"
+  ) +
+  scale_y_reverse() +  # This inverts the y-axis
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold"),
+    axis.title.x = element_text(face = "bold"),
+    axis.title.y = element_text(face = "bold"),
+    legend.title = element_text(face = "bold"),
+    axis.text.x = element_text(angle = 45, hjust = 1)
+  )
+```
